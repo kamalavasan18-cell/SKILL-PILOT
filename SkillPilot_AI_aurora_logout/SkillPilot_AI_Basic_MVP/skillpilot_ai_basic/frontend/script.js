@@ -5,7 +5,7 @@
    POST /analyze · GET /assessment/questions · POST /assessment/submit
    GET /progress/{id} · GET /agents · GET /
    ========================================================= */
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "";
 
 /* Starter data mirrored from backend/main.py. Used only for the landing demo,
    skill suggestions and mentor hints. Real results always come from the API. */
@@ -85,8 +85,7 @@ async function api(path, opts) {
   }
   return res.json();
 }
-const OFFLINE_MSG = "Can't reach the SkillPilot server at 127.0.0.1:8000. Start the backend with “uvicorn main:app --reload” and try again.";
-
+const OFFLINE_MSG = "Can't reach the SkillPilot server. Please check your internet connection and try again.";
 /* =========================================================
    SVG building blocks
    ========================================================= */
