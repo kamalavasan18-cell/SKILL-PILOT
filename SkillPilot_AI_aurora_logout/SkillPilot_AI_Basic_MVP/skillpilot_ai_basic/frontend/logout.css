@@ -1,0 +1,42 @@
+/* Logout feature: profile menu, confirm dialog, leave animation */
+.profile-menu{position:relative}
+.profile-btn{display:flex;align-items:center;gap:10px;padding:4px 10px 4px 4px;border-radius:99px;border:1px solid var(--glass-line,rgba(255,255,255,.13));background:rgba(255,255,255,.05);color:var(--ink,#E7E5FF);font:700 14px var(--font-b,system-ui);cursor:pointer;transition:border-color .2s,background .2s}
+.profile-btn:hover,.profile-btn[aria-expanded="true"]{border-color:var(--au-cyan,#22d3ee);background:rgba(34,211,238,.08)}
+.profile-btn .chev{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;transition:transform .2s}
+.profile-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.avatar-lg{width:48px;height:48px;font-size:20px}
+.profile-pop{position:absolute;right:0;top:calc(100% + 10px);width:280px;padding:16px;border-radius:18px;z-index:60;background:rgba(16,14,50,.96);border:1px solid rgba(139,125,255,.35);backdrop-filter:blur(18px);box-shadow:0 30px 70px -20px rgba(70,50,255,.7);animation:pop-in .18s ease-out}
+.profile-pop[hidden]{display:none}
+.pp-head{display:flex;gap:12px;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--line,rgba(160,150,255,.18))}
+.pp-head b{display:block;color:#fff;font:700 16px var(--font-d,system-ui)}
+.pp-head small{display:block;color:var(--muted,#A7A5D0);font-size:13px;word-break:break-all}
+.pp-info{margin:12px 0;display:grid;gap:10px}
+.pp-info div{display:flex;justify-content:space-between;gap:12px;font-size:13.5px}
+.pp-info dt{color:var(--muted,#A7A5D0)}.pp-info dd{margin:0;font-weight:700;color:#fff;text-align:right}
+.pp-item{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border:0;border-radius:12px;background:transparent;color:var(--ink,#E7E5FF);font:600 14.5px var(--font-b,system-ui);text-decoration:none;cursor:pointer;text-align:left}
+.pp-item:hover{background:rgba(255,255,255,.07)}
+.pp-danger{color:#ff8fb1}.pp-danger:hover{background:rgba(255,79,130,.14)}
+.side-logout{cursor:pointer}
+@keyframes pop-in{from{opacity:0;transform:translateY(-6px) scale(.97)}to{opacity:1;transform:none}}
+@media(max-width:700px){.profile-name,.profile-btn .chev{display:none}.profile-btn{padding:3px}}
+
+.lo-modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:20px}
+.lo-modal[hidden]{display:none}
+.lo-backdrop{position:absolute;inset:0;background:rgba(3,3,14,.6);backdrop-filter:blur(6px);opacity:0;transition:opacity .22s}
+.lo-dialog{position:relative;width:min(400px,100%);padding:30px 28px 24px;text-align:center;border-radius:22px;background:rgba(18,16,58,.97);border:1px solid rgba(139,125,255,.4);box-shadow:0 40px 100px -20px rgba(80,60,255,.75);opacity:0;transform:translateY(14px) scale(.95);transition:opacity .22s,transform .28s cubic-bezier(.2,.9,.3,1.2)}
+.lo-modal.show .lo-backdrop{opacity:1}
+.lo-modal.show .lo-dialog{opacity:1;transform:none}
+.lo-icon{width:56px;height:56px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;background:rgba(255,79,130,.14);color:#ff8fb1}
+.lo-icon .i{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2}
+.lo-dialog h2{margin:0 0 6px;color:#fff;font:700 22px var(--font-d,system-ui)}
+.lo-dialog p{margin:0 0 22px;color:var(--muted,#A7A5D0);font-size:16px}
+.lo-actions{display:flex;gap:12px;justify-content:center}.lo-actions .btn{min-width:120px;justify-content:center}
+
+.lo-curtain{position:fixed;inset:0;z-index:300;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#1a1550,#050612 70%);opacity:0;pointer-events:none;transition:opacity .45s ease}
+.lo-curtain.show{opacity:1;pointer-events:all}
+.lo-curtain-in{display:flex;flex-direction:column;align-items:center;gap:16px;color:#fff;font:600 17px var(--font-d,system-ui);transform:scale(.9);transition:transform .45s ease}
+.lo-curtain.show .lo-curtain-in{transform:none}
+.lo-spin{width:38px;height:38px;border-radius:50%;border:3px solid rgba(255,255,255,.15);border-top-color:var(--au-cyan,#22d3ee);animation:lo-rot .8s linear infinite}
+@keyframes lo-rot{to{transform:rotate(360deg)}}
+body.lo-leaving .app-main,body.lo-leaving .sidebar{transition:opacity .5s,transform .5s,filter .5s;opacity:.35;transform:scale(.985);filter:blur(3px)}
+@media(prefers-reduced-motion:reduce){.lo-dialog,.lo-curtain,.lo-curtain-in,.profile-pop,body.lo-leaving .app-main{transition:none;animation:none}.lo-spin{animation-duration:2s}}

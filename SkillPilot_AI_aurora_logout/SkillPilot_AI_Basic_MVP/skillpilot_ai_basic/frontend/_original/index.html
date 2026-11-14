@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillPilot AI | Career Learning</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-icon">✦</span> SkillPilot <span class="ai">AI</span></a>
+    <nav><a href="#dashboard">Dashboard</a><a href="#analyzer">Skill Analyzer</a><a href="#roadmap">Roadmap</a></nav>
+    <span class="status"><i></i> Learning workspace</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">YOUR PERSONAL AI CAREER ARCHITECT</p>
+        <h1>Turn your skills into<br><span>a career-ready future.</span></h1>
+        <p class="hero-copy">Understand where you are, discover what you need, and follow a learning path built around your goals.</p>
+        <a class="primary-btn" href="#analyzer">Build my learning path <b>→</b></a>
+      </div>
+      <div class="hero-card">
+        <div class="orb">✦</div>
+        <p class="card-label">YOUR CAREER JOURNEY</p>
+        <h3>Learn with direction.</h3>
+        <div class="mini-progress"><span></span></div>
+        <div class="mini-row"><span>Skill development</span><b>Personalized</b></div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section">
+      <div class="section-heading"><div><p class="eyebrow">OVERVIEW</p><h2>Your learning dashboard</h2></div><span class="tag">Starter workspace</span></div>
+      <div class="stats-grid">
+        <article class="stat"><span class="stat-icon purple">◎</span><p>Target career</p><h3 id="stat-career">Not selected</h3><small>Your next destination</small></article>
+        <article class="stat"><span class="stat-icon blue">⌁</span><p>Skills entered</p><h3 id="stat-skills">0</h3><small>Starting skill profile</small></article>
+        <article class="stat"><span class="stat-icon green">↗</span><p>Skills to develop</p><h3 id="stat-gaps">0</h3><small>Identified skill gaps</small></article>
+        <article class="stat"><span class="stat-icon orange">▤</span><p>Roadmap tasks</p><h3 id="stat-tasks">0</h3><small>Suggested next steps</small></article>
+      </div>
+    </section>
+
+    <section id="analyzer" class="section analyzer-section">
+      <div class="section-heading"><div><p class="eyebrow">START HERE</p><h2>Build your skill profile</h2><p class="subheading">Tell us what you know and where you want to go.</p></div></div>
+      <div class="form-card">
+        <form id="profile-form">
+          <div class="form-grid">
+            <label>Student name<input id="student-name" type="text" placeholder="e.g. Kamal" required /></label>
+            <label>Target career
+              <select id="career" required>
+                <option value="">Choose your career</option>
+                <option>Full Stack Developer</option>
+                <option>AI / ML Engineer</option>
+                <option>Data Analyst</option>
+                <option>Cybersecurity Analyst</option>
+                <option>UI/UX Designer</option>
+              </select>
+            </label>
+          </div>
+          <label>Current skills <span class="hint">Separate skills with commas</span>
+            <input id="skills" type="text" placeholder="e.g. Python, SQL, HTML" required />
+          </label>
+          <label>Certifications and projects <span class="hint">Optional</span>
+            <textarea id="experience" rows="3" placeholder="e.g. Python basics certificate, student portfolio website"></textarea>
+          </label>
+          <button class="primary-btn" type="submit">Analyze my skills <b>→</b></button>
+          <p id="form-message" class="form-message"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="results" class="section results-section hidden">
+      <div class="section-heading"><div><p class="eyebrow">YOUR ANALYSIS</p><h2>Career readiness snapshot</h2></div><span class="tag success">Profile analyzed</span></div>
+      <div class="results-grid">
+        <article class="result-card"><h3>Skills you already have</h3><div id="strengths" class="chips"></div></article>
+        <article class="result-card"><h3>Skills to develop</h3><div id="gaps" class="chips"></div></article>
+      </div>
+      <article class="result-card roadmap-card" id="roadmap">
+        <div class="roadmap-title"><div><p class="eyebrow">RECOMMENDED NEXT STEPS</p><h2>Your learning roadmap</h2></div><span class="tag">Personalized starter plan</span></div>
+        <div id="roadmap-list" class="roadmap-list"></div>
+      </article>
+      <article class="result-card mentor-card"><div class="mentor-icon">✦</div><div><p class="eyebrow">AI MENTOR</p><h3 id="mentor-title">Your next move</h3><p id="mentor-message">Your recommendations will appear here.</p></div></article>
+    </section>
+    <footer>SkillPilot AI <span>•</span> Learn with direction. Grow with confidence.</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

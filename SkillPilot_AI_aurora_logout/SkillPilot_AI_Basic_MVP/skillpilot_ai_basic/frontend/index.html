@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillPilot AI | Find the skills between you and your first tech role</title>
+  <meta name="description" content="SkillPilot AI maps your skills against a target career, verifies them with an assessment and builds a roadmap that adapts to your results." />
+  <meta name="theme-color" content="#070816" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="aurora.css" />
+  <link rel="stylesheet" href="logout.css" />
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-aurora" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset=".35" stop-color="#3b82f6"/><stop offset=".65" stop-color="#22d3ee"/><stop offset="1" stop-color="#f472b6"/></linearGradient>
+    <linearGradient id="grad-line" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="640" y2="0"><stop offset="0" stop-color="#8b5cf6"/><stop offset=".5" stop-color="#22d3ee"/><stop offset="1" stop-color="#f472b6"/></linearGradient>
+    <linearGradient id="grad-logo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset=".55" stop-color="#3b82f6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+  </defs>
+  <symbol id="logo" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="url(#grad-logo)"/><path d="M7 23c5 0 5-8 10-8s4.5-6 8-6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="25" cy="9" r="3.3" fill="#f472b6"/></symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></symbol>
+  <symbol id="i-profile" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol>
+  <symbol id="i-radar" viewBox="0 0 24 24"><path d="M12 3l8.5 6.2-3.2 10H6.7L3.5 9.2z"/><path d="M12 3v9l5.3 7.2M12 12l-5.3 7.2M12 12l8.5-2.8M12 12L3.5 9.2"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 000-6H9a3 3 0 010-6h6.5"/></symbol>
+  <symbol id="i-quiz" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 011 1v10a1 1 0 01-1 1H10l-5 4v-4a1 1 0 01-1-1V5a1 1 0 011-1z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M8 15l4-5 3 3 5-7"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 4H5a1 1 0 00-1 1v14a1 1 0 001 1h4M16 8l4 4-4 4M20 12H9"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2.5-6.5z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 016.5 3H20v16H6.5A2.5 2.5 0 004 21.5z"/><path d="M4 21.5V5.5"/></symbol>
+</svg>
+
+<!-- Aurora FX layers -->
+<div class="aurora-bg" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<canvas id="fx-canvas" aria-hidden="true"></canvas>
+<div class="fx-curtain" id="fx-curtain" aria-hidden="true"></div>
+
+<a class="skip-link" href="#main-landing">Skip to content</a>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- ============================ LANDING ============================ -->
+<div id="view-landing" class="view">
+  <header class="site-nav">
+    <a class="brand" href="#/" aria-label="SkillPilot AI home"><svg class="logo"><use href="#logo"/></svg><span>SkillPilot <em>AI</em></span></a>
+    <nav class="site-links" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#agents">The agents</a>
+      <a href="#features">Product</a>
+      <a href="#tracks">Career tracks</a>
+    </nav>
+    <div class="site-actions">
+      <a class="btn btn-ghost js-login-link" href="#/login">Log in</a>
+      <a class="btn btn-accent js-signup-link" href="#/signup">Get started free</a>
+    </div>
+  </header>
+
+  <main id="main-landing" tabindex="-1">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><i></i>Five-agent career copilot</span>
+        <h1>Find the <span class="holo">exact skills</span> between you and your first tech role.</h1>
+        <p class="lead">Tell SkillPilot where you want to work. It maps what you already know, tests what you can actually do, and builds a roadmap that reorders itself around your results.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg js-signup-link" href="#/signup">Build my roadmap</a>
+          <a class="btn btn-ghost btn-lg" href="#try">Try a skill check</a>
+        </div>
+        <ul class="hero-stats" aria-label="At a glance">
+          <li><b>5</b><span>career tracks</span></li>
+          <li><b>5</b><span>specialist agents</span></li>
+          <li><b>~2 min</b><span>to your first roadmap</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-stage" id="hero-stage" aria-hidden="true">
+        <div class="css-orb"><i></i><i></i><i></i><b></b></div>
+        <div class="float-cards">
+          <div class="float-card fc1"><span class="fc-top"><em class="fc-dot c"></em>Python</span><small>Verified</small><div class="fc-bar"><i style="--w:92%"></i></div></div>
+          <div class="float-card fc2"><span class="fc-top"><em class="fc-dot m"></em>SQL</span><small>Priority gap</small><div class="fc-bar"><i style="--w:18%"></i></div></div>
+          <div class="float-card fc3"><span class="fc-top"><em class="fc-dot v"></em>React</span><small>Declared</small><div class="fc-bar"><i style="--w:64%"></i></div></div>
+          <div class="float-card fc4"><span class="fc-top"><em class="fc-dot p"></em>Machine Learning</span><small>Up next</small><div class="fc-bar"><i style="--w:41%"></i></div></div>
+          <div class="float-card fc5"><span class="fc-top"><em class="fc-dot c"></em>Career readiness</span><small>68% · Nearly ready</small><div class="fc-bar"><i style="--w:68%"></i></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap try-sec" id="try">
+      <div class="try-copy">
+        <span class="eyebrow"><i></i>Live demo</span>
+        <h2 class="section-title">Pick the skills you have. Watch your readiness move.</h2>
+        <p class="lead-sm">This is the same idea the full product uses, on sample skills. Switch tracks, tap what you already know, and see what to learn first.</p>
+      </div>
+      <div class="sim card-lift" id="sim" aria-labelledby="sim-title">
+        <div class="sim-head">
+          <h2 id="sim-title">Try a skill check</h2>
+          <span class="pill pill-sage">Sample skills</span>
+        </div>
+        <div class="seg sim-tabs" id="sim-tabs" role="tablist" aria-label="Career track"></div>
+        <p class="sim-help">Tap the skills you already have.</p>
+        <div class="sim-skills" id="sim-skills"></div>
+        <div class="sim-result">
+          <div id="sim-ring" class="sim-ring"></div>
+          <div>
+            <p class="sim-label">Career readiness</p>
+            <p class="sim-note" id="sim-note"></p>
+          </div>
+        </div>
+        <div class="sim-next">
+          <p class="sim-label">Start with</p>
+          <p class="sim-next-skill" id="sim-next-skill"></p>
+          <p class="sim-next-hint" id="sim-next-hint"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band-how" id="how">
+      <div class="wrap">
+        <h2 class="section-title">From “I think I know this” to a plan you can follow</h2>
+        <ol class="steps">
+          <li><span class="step-no">1</span><h3>Choose your target</h3><p>Pick a career and list the skills you have. Add certificates and projects if you like.</p></li>
+          <li><span class="step-no">2</span><h3>See your gaps</h3><p>Your skills are matched against what the role needs, on a radar you can explore.</p></li>
+          <li><span class="step-no">3</span><h3>Prove it</h3><p>A short assessment checks the skills you claimed instead of taking your word for it.</p></li>
+          <li><span class="step-no">4</span><h3>Follow a roadmap that adapts</h3><p>Missed a question? That skill jumps to the front of your plan.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="wrap agents-sec" id="agents">
+      <div class="agents-intro">
+        <h2 class="section-title">Five agents. One job each.</h2>
+        <p class="lead-sm">Your plan isn’t one big guess. Each step is handled by a specialist, so every recommendation can be traced back to something you told us or something you answered.</p>
+      </div>
+      <ul class="agent-list">
+        <li><svg class="i"><use href="#i-target"/></svg><div><h3>Career Intelligence</h3><p>Identifies what your chosen career requires.</p></div></li>
+        <li><svg class="i"><use href="#i-check"/></svg><div><h3>Skill Verification</h3><p>Compares what you declared with what the role needs.</p></div></li>
+        <li><svg class="i"><use href="#i-route"/></svg><div><h3>Learning Path</h3><p>Turns every gap into a concrete learning activity.</p></div></li>
+        <li><svg class="i"><use href="#i-spark"/></svg><div><h3>AI Mentor</h3><p>Explains your results and your next move.</p></div></li>
+        <li><svg class="i"><use href="#i-chart"/></svg><div><h3>Adaptive Learning</h3><p>Reorders your roadmap from assessment performance.</p></div></li>
+      </ul>
+    </section>
+
+    <section class="wrap features" id="features">
+      <h2 class="section-title">Everything a learner checks every week</h2>
+      <div class="bento">
+        <article class="tile tile-score">
+          <div><h3>Career readiness score</h3><p>One number that moves when you do. It blends what you know, what you’ve proven and what you’ve finished.</p></div>
+          <svg class="tile-ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="none" stroke="rgba(248,247,242,.18)" stroke-width="12"/><circle cx="60" cy="60" r="50" fill="none" stroke="url(#grad-aurora)" stroke-width="12" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="99" transform="rotate(-90 60 60)"/><text x="60" y="60" text-anchor="middle" dominant-baseline="central" font-size="28" font-weight="800" fill="#F8F7F2">68%</text></svg>
+        </article>
+        <article class="tile tile-radar">
+          <h3>Skill gap radar</h3>
+          <p>Every required skill on one map. Tap a point to see what to do about it.</p>
+          <svg viewBox="0 0 160 130" aria-hidden="true"><polygon points="80,10 140,52 118,118 42,118 20,52" fill="none" stroke="#6f6bd6" stroke-dasharray="3 3"/><polygon points="80,34 118,56 100,100 60,88 44,58" fill="rgba(139,92,246,.35)" stroke="#22d3ee" stroke-width="2"/><circle cx="80" cy="34" r="3.5" fill="#f472b6"/><circle cx="118" cy="56" r="3.5" fill="#f472b6"/><circle cx="100" cy="100" r="3.5" fill="#f472b6"/><circle cx="60" cy="88" r="3.5" fill="#f472b6"/><circle cx="44" cy="58" r="3.5" fill="#f472b6"/></svg>
+        </article>
+        <article class="tile tile-road">
+          <h3>Adaptive roadmap</h3>
+          <p>Miss a question and that skill moves to the top.</p>
+          <ul class="mini-road"><li class="pri"><b>SQL</b><span>Priority</span></li><li><b>React</b></li><li><b>Git</b></li></ul>
+        </article>
+        <article class="tile tile-mentor">
+          <h3>AI mentor</h3>
+          <p>Ask what to learn next and get an answer based on your own results.</p>
+          <div class="mini-chat"><span class="b-user">What should I start with?</span><span class="b-bot">SQL. It came up in your assessment.</span></div>
+        </article>
+        <article class="tile tile-prog">
+          <h3>Progress analytics</h3>
+          <p>See your readiness climb as you finish steps and retake the assessment.</p>
+          <svg viewBox="0 0 220 70" aria-hidden="true"><path d="M5 58 L50 48 L95 50 L140 28 L215 12 L215 70 L5 70Z" fill="rgba(34,211,238,.16)"/><path d="M5 58 L50 48 L95 50 L140 28 L215 12" fill="none" stroke="url(#grad-line)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="215" cy="12" r="4" fill="#f472b6"/></svg>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap tracks" id="tracks">
+      <h2 class="section-title">Choose a track to start with</h2>
+      <div class="tracks-grid" id="tracks-grid"></div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap cta-inner">
+        <h2>Your first analysis takes about two minutes.</h2>
+        <a class="btn btn-accent btn-lg js-signup-link" href="#/signup">Create your free account</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap foot-inner">
+      <a class="brand" href="#/"><svg class="logo"><use href="#logo"/></svg><span>SkillPilot <em>AI</em></span></a>
+      <p>Learn with direction. Grow with confidence.</p>
+      <p class="foot-small">&copy; 2026 SkillPilot AI</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ============================ AUTH ============================ -->
+<div id="view-auth" class="view hidden">
+  <div class="auth">
+    <aside class="auth-side">
+      <a class="brand brand-light" href="#/"><svg class="logo"><use href="#logo"/></svg><span>SkillPilot <em>AI</em></span></a>
+      <div class="auth-orb" aria-hidden="true"></div>
+      <div class="auth-pitch">
+        <h2>Pick up where your roadmap left off.</h2>
+        <p>Your skill map, readiness score and next step are waiting for you.</p>
+      </div>
+      <div class="auth-preview" aria-hidden="true">
+        <p class="sim-label">Up next · sample</p>
+        <p class="auth-pv-skill">SQL</p>
+        <p class="auth-pv-text">Practice SELECT, JOIN, GROUP BY and database relationships.</p>
+        <div class="auth-pv-bar"><i></i></div>
+      </div>
+    </aside>
+
+    <section class="auth-main" aria-labelledby="auth-title">
+      <div class="auth-box">
+        <div class="seg auth-tabs" role="tablist" aria-label="Account">
+          <button id="tab-login" role="tab" aria-selected="true" aria-controls="form-login">Log in</button>
+          <button id="tab-signup" role="tab" aria-selected="false" aria-controls="form-signup">Create account</button>
+        </div>
+        <h1 id="auth-title">Welcome back</h1>
+        <p class="auth-sub" id="auth-sub">Log in to continue your learning path.</p>
+
+        <form id="form-login" class="auth-form" novalidate>
+          <label>Email<input id="login-email" type="email" autocomplete="email" placeholder="you@example.com" required /></label>
+          <label>Password
+            <span class="pw"><input id="login-password" type="password" autocomplete="current-password" placeholder="Your password" required /><button type="button" class="pw-toggle" data-target="login-password">Show</button></span>
+          </label>
+          <p class="form-error" id="login-error" role="alert"></p>
+          <button class="btn btn-primary btn-block" type="submit">Log in</button>
+          <p class="auth-switch">New here? <a href="#/signup">Create an account</a></p>
+        </form>
+
+        <form id="form-signup" class="auth-form hidden" novalidate>
+          <label>Full name<input id="signup-name" type="text" autocomplete="name" placeholder="e.g. Kamal Raj" required /></label>
+          <label>Email<input id="signup-email" type="email" autocomplete="email" placeholder="you@example.com" required /></label>
+          <label>Password
+            <span class="pw"><input id="signup-password" type="password" autocomplete="new-password" placeholder="At least 8 characters" required minlength="8" /><button type="button" class="pw-toggle" data-target="signup-password">Show</button></span>
+          </label>
+          <p class="form-error" id="signup-error" role="alert"></p>
+          <button class="btn btn-accent btn-block" type="submit">Create account</button>
+          <p class="auth-switch">Already have an account? <a href="#/login">Log in</a></p>
+        </form>
+        <p class="auth-fine">Demo accounts are stored in this browser only. Nothing is sent to the server when you sign up.</p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ============================ APP ============================ -->
+<div id="view-app" class="view app hidden">
+  <aside class="sidebar" id="sidebar" aria-label="App navigation">
+    <a class="brand brand-light" href="#/app/dashboard"><svg class="logo"><use href="#logo"/></svg><span>SkillPilot <em>AI</em></span></a>
+    <nav class="side-nav" aria-label="Main">
+      <a href="#/app/dashboard" data-nav="dashboard"><svg class="i"><use href="#i-dash"/></svg>Dashboard</a>
+      <a href="#/app/analyzer" data-nav="analyzer"><svg class="i"><use href="#i-profile"/></svg>Skill profile</a>
+      <a href="#/app/gaps" data-nav="gaps"><svg class="i"><use href="#i-radar"/></svg>Skill gaps</a>
+      <a href="#/app/roadmap" data-nav="roadmap"><svg class="i"><use href="#i-route"/></svg>Roadmap</a>
+      <a href="#/app/assessment" data-nav="assessment"><svg class="i"><use href="#i-quiz"/></svg>Assessment</a>
+      <a href="#/app/mentor" data-nav="mentor"><svg class="i"><use href="#i-chat"/></svg>AI mentor</a>
+      <a href="#/app/analytics" data-nav="analytics"><svg class="i"><use href="#i-chart"/></svg>Progress</a>
+    </nav>
+    <div class="side-card" id="side-card"></div>
+    <button class="side-logout" id="logout-btn" type="button"><svg class="i"><use href="#i-logout"/></svg>Log out</button>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <div class="app-main">
+    <header class="app-top">
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-controls="sidebar"><svg class="i"><use href="#i-menu"/></svg></button>
+      <div class="top-title"><h1 id="page-title" tabindex="-1">Dashboard</h1><p id="page-sub"></p></div>
+      <div class="top-right">
+        <button class="status-pill" id="api-status" type="button" title="Check server connection"><i></i><span>Checking server</span></button>
+        <div class="profile-menu" id="profile-menu">
+          <button class="profile-btn" id="profile-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="profile-pop">
+            <span class="avatar" id="avatar" aria-hidden="true">S</span>
+            <span class="profile-name" id="profile-name-top">Learner</span>
+            <svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="profile-pop" id="profile-pop" role="menu" hidden>
+            <div class="pp-head"><span class="avatar avatar-lg" id="pp-avatar" aria-hidden="true">S</span>
+              <div><b id="pp-name">Learner</b><small id="pp-email"></small></div></div>
+            <dl class="pp-info">
+              <div><dt>Target career</dt><dd id="pp-career">Not set yet</dd></div>
+              <div><dt>Career readiness</dt><dd id="pp-ready">—</dd></div>
+            </dl>
+            <a class="pp-item" role="menuitem" href="#/app/analyzer"><svg class="i"><use href="#i-profile"/></svg>Skill profile</a>
+            <button class="pp-item pp-danger" role="menuitem" id="pp-logout" type="button"><svg class="i"><use href="#i-logout"/></svg>Log out</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="app-content">
+      <section id="page-dashboard" class="page hidden"></section>
+
+      <section id="page-analyzer" class="page hidden">
+        <div class="analyzer-grid">
+          <form id="profile-form" class="card form-card">
+            <h2>Tell us where you are and where you’re going</h2>
+            <div class="form-grid">
+              <label>Student name<input id="student-name" type="text" placeholder="e.g. Kamal" required autocomplete="name" /></label>
+              <label>Target career
+                <select id="career" required>
+                  <option value="">Choose your career</option>
+                  <option>Full Stack Developer</option>
+                  <option>AI / ML Engineer</option>
+                  <option>Data Analyst</option>
+                  <option>Cybersecurity Analyst</option>
+                  <option>UI/UX Designer</option>
+                </select>
+              </label>
+            </div>
+            <label>Current skills <span class="hint">Separate skills with commas</span>
+              <input id="skills" type="text" placeholder="e.g. Python, SQL, HTML" required />
+            </label>
+            <div class="suggest" id="skill-suggest" aria-label="Suggested skills"></div>
+            <label>Certifications and projects <span class="hint">Optional</span>
+              <textarea id="experience" rows="3" placeholder="e.g. Python basics certificate, student portfolio website"></textarea>
+            </label>
+            <button class="btn btn-primary" id="analyze-btn" type="submit"><span class="spinner" aria-hidden="true"></span><span class="btn-label">Analyze my skills</span></button>
+            <p id="form-message" class="form-message" role="alert"></p>
+          </form>
+
+          <aside class="card side-info">
+            <h3>What happens next</h3>
+            <ol class="info-steps">
+              <li><b>Career Intelligence</b><span>Looks up what your target role requires.</span></li>
+              <li><b>Skill Verification</b><span>Compares your skills with those requirements.</span></li>
+              <li><b>Learning Path</b><span>Builds a roadmap from every gap.</span></li>
+              <li><b>AI Mentor</b><span>Writes your first recommendation.</span></li>
+            </ol>
+            <p class="info-note">Skills you list count as declared, not verified. The assessment checks them afterwards.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="page-gaps" class="page hidden"></section>
+      <section id="page-roadmap" class="page hidden"></section>
+      <section id="page-assessment" class="page hidden"></section>
+      <section id="page-mentor" class="page hidden"></section>
+      <section id="page-analytics" class="page hidden"></section>
+    </main>
+  </div>
+</div>
+
+<div id="tip" class="tip" role="tooltip" hidden></div>
+
+<div class="lo-modal" id="logout-modal" hidden>
+  <div class="lo-backdrop" data-lo="cancel"></div>
+  <div class="lo-dialog" role="alertdialog" aria-modal="true" aria-labelledby="lo-title" aria-describedby="lo-desc">
+    <div class="lo-icon"><svg class="i"><use href="#i-logout"/></svg></div>
+    <h2 id="lo-title">Log out?</h2>
+    <p id="lo-desc">Are you sure you want to log out?</p>
+    <div class="lo-actions">
+      <button type="button" class="btn btn-ghost" id="lo-cancel" data-lo="cancel">Cancel</button>
+      <button type="button" class="btn btn-primary" id="lo-confirm">Log out</button>
+    </div>
+  </div>
+</div>
+<div class="lo-curtain" id="lo-curtain" aria-hidden="true"><div class="lo-curtain-in"><span class="lo-spin"></span><b>Logging you out…</b></div></div>
+<script src="aurora3d.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
