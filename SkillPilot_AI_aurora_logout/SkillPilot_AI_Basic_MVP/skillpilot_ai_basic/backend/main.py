@@ -1,3 +1,5 @@
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
 from ai_service import generate_career_analysis
 
 from fastapi import FastAPI, HTTPException
@@ -121,13 +123,6 @@ def startup():
 # HOME
 # ==============================
 
-@app.get("/")
-def home():
-    return {
-        "message": "SkillPilot AI 2.0 is running!",
-        "system": "Multi-Agent Learning Platform",
-        "agents": 5
-    }
 
 
 # ==============================
@@ -406,3 +401,10 @@ def submit_assessment(data: AssessmentSubmission):
         "adaptation": adaptation,
         "adaptive_roadmap": adaptive_roadmap
     }
+    FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
+
+app.mount(
+    "/",
+    StaticFiles(directory=str(FRONTEND_DIR), html=True),
+    name="frontend"
+)
